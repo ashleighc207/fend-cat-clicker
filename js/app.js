@@ -1,10 +1,18 @@
-let clicks = document.querySelector('.img-container');
-let img = document.querySelector('.img-main');
+let clicks = document.querySelector('.h1-container');
+let imgS = document.querySelector('.img-sparkles');
+let imgP = document.querySelector('.img-psycho');
 let clickCount = 0;
 
 
 
-img.addEventListener('click', function(){
+imgS.addEventListener('click', function(){
+	clickCount++;
+	clicks.innerHTML = `
+	<h1 class="heading-one">Clicks: ${clickCount}</h1>
+	`;
+});
+
+imgP.addEventListener('click', function(){
 	clickCount++;
 	clicks.innerHTML = `
 	<h1 class="heading-one">Clicks: ${clickCount}</h1>

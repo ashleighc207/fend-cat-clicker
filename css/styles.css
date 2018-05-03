@@ -11,3 +11,12 @@ body, html {
 	width: 100%;
 	font-family: helvetica, sans-serif;
 }
+.img-container {
+	display: flex;
+	width: 80%;
+	justify-content: space-between;
+	align-items: center;
+}
+.img-block {
+	text-align: center;
+}
