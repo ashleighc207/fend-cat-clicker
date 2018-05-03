@@ -1,21 +1,20 @@
-let clicks = document.querySelector('.h1-container');
-let imgS = document.querySelector('.img-sparkles');
-let imgP = document.querySelector('.img-psycho');
-let clickCount = 0;
+let clicks = document.querySelectorAll('.h1-container');
+let img = document.querySelectorAll('.img');
+let clickCount = [0, 0];
 
 
 
-imgS.addEventListener('click', function(){
-	clickCount++;
-	clicks.innerHTML = `
-	<h1 class="heading-one">Clicks: ${clickCount}</h1>
+img[0].addEventListener('click', function(){
+	clickCount[0]++;
+	clicks[0].innerHTML = `
+	<h1 class="heading-one">Clicks: ${clickCount[0]}</h1>
 	`;
 });
 
-imgP.addEventListener('click', function(){
-	clickCount++;
-	clicks.innerHTML = `
-	<h1 class="heading-one">Clicks: ${clickCount}</h1>
+img[1].addEventListener('click', function(){
+	clickCount[1]++;
+	clicks[1].innerHTML = `
+	<h1 class="heading-one">Clicks: ${clickCount[1]}</h1>
 	`;
 });
 
