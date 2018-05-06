@@ -1,61 +1,101 @@
-let clicks = document.querySelectorAll('.h1-container');
-let img = document.querySelectorAll('.img');
-let cats = document.querySelectorAll('.cat-box');
-let toggleSwitch = document.querySelectorAll('.toggle');
-let clickCount = [0, 0, 0, 0, 0];
+let model = {
+	currentCat: null,
+	cats: [
+			{
+				name: 'Psycho',
+				clickCount: 6,
+				img: './img/kitten-1.jpg'
+			},
+			{
+				name: 'Sparkles',
+				clickCount: 6,
+				img: './img/kitten-2.jpg'
+			},
+			{
+				name: 'Pepporoni',
+				clickCount: 6,
+				img: './img/kitten-3.jpg'
+			},
+			{
+				name: 'Smiles',
+				clickCount: 6,
+				img: './img/kitten-4.jpg'
+			},
+			{
+				name: 'Apple',
+				clickCount: 6,
+				img: './img/kitten-5.jpg'
+			}
+		]
+}
 
+let octopus = {
+	init: function() {
+		model.currentCat = model.cats[0];
+		catListView.init();
+		catView.init();
+	},
+	getCurrentCat: function(){
+		return model.currentCat;
+	},
+	getCats: function() {
+		return model.cats;
+	},
+	setCurrentCat: function(cat) {
+		model.currentCat = cat;
+	},
+	incrementCounter: function() {
+		model.currentCat.clickCount++;
+		catView.render();
+	}
+}
 
-img[0].addEventListener('click', function(){
-	clickCount[0]++;
-	clicks[0].innerHTML = `
-	<h1 class="heading-one">Clicks: ${clickCount[0]}</h1>
-	`;
-});
+let catView = {
+	init: function() {
+		this.catElem = document.getElementById('cat');
+		this.catNameElem = document.getElementById('cat-name');
+		this.catImageElem = document.getElementById('cat-img');
+		this.countElem = document.getElementById('cat-count');
 
-toggleSwitch[0].addEventListener('click', function(){
-	cats[0].classList.toggle('display-none');
-});
+		this.catImageElem.addEventListener('click', function(e){
+			octopus.incrementCounter();
+		});
 
-img[1].addEventListener('click', function(){
-	clickCount[1]++;
-	clicks[1].innerHTML = `
-	<h1 class="heading-one">Clicks: ${clickCount[1]}</h1>
-	`;
-});
+		this.render();
+	},
+	render: function() {
+		let currentCat = octopus.getCurrentCat();
+		this.countElem.textContent = currentCat.clickCount;
+		this.catNameElem.textContent = currentCat.name;
+		this.catImageElem.src = currentCat.img;
+	}
+}
 
-toggleSwitch[1].addEventListener('click', function(){
-	cats[1].classList.toggle('display-none');
-});
+let catListView = {
+	init: function() {
+		this.catListElem = document.getElementById('cat-list');
+		this.render();
+	},
+	render: function() {
+		let cats = octopus.getCats();
 
-img[2].addEventListener('click', function(){
-	clickCount[2]++;
-	clicks[2].innerHTML = `
-	<h1 class="heading-one">Clicks: ${clickCount[2]}</h1>
-	`;
-});
+		this.catListElem.innerHTML = '';
 
-toggleSwitch[2].addEventListener('click', function(){
-	cats[2].classList.toggle('display-none');
-});
+		for(let i = 0; i < cats.length; i++){
+			let cat = cats[i];
+			let elem = document.createElement('li');
 
-img[3].addEventListener('click', function(){
-	clickCount[3]++;
-	clicks[3].innerHTML = `
-	<h1 class="heading-one">Clicks: ${clickCount[3]}</h1>
-	`;
-});
+			elem.textContent = cat.name;
+			elem.addEventListener('click', (function(cat) {
+				return function(){
+					octopus.setCurrentCat(cat);
+					catView.render();
+				};
+			})(cat));
 
-toggleSwitch[3].addEventListener('click', function(){
-	cats[3].classList.toggle('display-none');
-});
+			this.catListElem.appendChild(elem);
+		}
+	}
+}
 
-img[4].addEventListener('click', function(){
-	clickCount[4]++;
-	clicks[4].innerHTML = `
-	<h1 class="heading-one">Clicks: ${clickCount[4]}</h1>
-	`;
-});
-
-toggleSwitch[4].addEventListener('click', function(){
-	cats[4].classList.toggle('display-none');
-});
+octopus.init();
